@@ -43,7 +43,7 @@ public class LoginService extends HttpServlet {
 
 		String jsonStr="false";
 		JsonObject obj=new JsonObject();
-		//여기서 안드로이드한테 로그인성공햇으면 다음페이지로 넘어간다던가ㅏ 그런게 잇어야될듯
+	
 		
 		if(info!=null) {//로그인 성공
 			System.out.println("로그인 성공");
