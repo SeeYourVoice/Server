@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import model.DAO;
+
 import model.UserDAO;
 import model.UserDTO;
 
