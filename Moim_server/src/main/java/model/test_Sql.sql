@@ -3,4 +3,4 @@ CREATE TABLE userTBL (
 	PWD VARCHAR2(20)
 );
 
-select * from TEST_USER;
+select * from TEST_USER1;
