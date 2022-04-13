@@ -4,3 +4,5 @@ CREATE TABLE userTBL (
 );
 
 select * from TEST_USER1;
+
+desc t_user;

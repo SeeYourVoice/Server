@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -85,10 +86,11 @@ public class UserDAO {
 				String user_joindate=rs.getString("USER_JOINDATE");	
 	
 				int dept_seq=rs.getInt("DEPT_SEQ");
+				int position_num=rs.getInt("POSITION_NUM");
 				
-				
-				userDTO=new UserDTO(user_email, user_password, first_name, last_name, profile_img, user_joindate, dept_seq);
-}
+				userDTO=new UserDTO(user_email, user_password, first_name, last_name, 
+						profile_img, user_joindate, dept_seq, position_num);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,4 +103,32 @@ public class UserDAO {
 		
 		
 	}
+
+	//이름수정
+	
+	public int Editname(String id,String fname, String lname) {
+		DBconn();
+		
+		String sql="update t_user set first_name=?, last_name=? where user_email=?";
+		System.out.println("edit name 실행됨");
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, fname);
+			psmt.setString(2, lname);
+			psmt.setString(3, id);
+			
+			cnt=psmt.executeUpdate(); 
+			
+			System.out.println(cnt+"안녕");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBclose();
+		}
+	
+		return cnt;
+	}
+	
 }
