@@ -9,11 +9,18 @@ public class UserDTO {
 	private String profile_img;
 	private String user_joindate;
 	private int dept_seq;
+	private int position_num;
 	//===============================
 	
 	
+
+	public UserDTO(String user_email, String user_password) {
+		super();
+		this.user_email = user_email;
+		this.user_password = user_password;
+	}
 	public UserDTO(String user_email, String user_password, String first_name, String last_name, String profile_img,
-			String user_joindate, int dept_seq) {
+			String user_joindate, int dept_seq, int position_num) {
 		super();
 		this.user_email = user_email;
 		this.user_password = user_password;
@@ -22,11 +29,7 @@ public class UserDTO {
 		this.profile_img = profile_img;
 		this.user_joindate = user_joindate;
 		this.dept_seq = dept_seq;
-	}
-	public UserDTO(String user_email, String user_password) {
-		super();
-		this.user_email = user_email;
-		this.user_password = user_password;
+		this.position_num = position_num;
 	}
 	public String getUser_email() {
 		return user_email;
@@ -70,6 +73,12 @@ public class UserDTO {
 	public void setDept_seq(int dept_seq) {
 		this.dept_seq = dept_seq;
 	}
-	
-	
+	public int getPosition_num() {
+		return position_num;
+	}
+	public void setPosition_num(int position_num) {
+		this.position_num = position_num;
+	}
+
+
 }

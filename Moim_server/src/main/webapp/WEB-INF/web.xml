@@ -4,14 +4,38 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
   <servlet>
   	<servlet-name>LoginService</servlet-name>
   	<display-name>LoginService</display-name>
   	<description></description>
   	<servlet-class>Controller.LoginService</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SearchInfoService</servlet-name>
+  	<display-name>SearchInfoService</display-name>
+  	<description></description>
+  	<servlet-class>Controller.SearchInfoService</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Edit_MyInfo_Service</servlet-name>
+  	<display-name>Edit_MyInfo_Service</display-name>
+  	<description></description>
+  	<servlet-class>Controller.Edit_MyInfo_Service</servlet-class>
+  </servlet>
+ 
+
   <servlet-mapping>
   	<servlet-name>LoginService</servlet-name>
   	<url-pattern>/LoginService</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SearchInfoService</servlet-name>
+  	<url-pattern>/SearchInfoService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Edit_MyInfo_Service</servlet-name>
+  	<url-pattern>/Edit_MyInfo_Service</url-pattern>
+  </servlet-mapping>
+
 </web-app>

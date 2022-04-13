@@ -28,8 +28,9 @@ public class LoginService extends HttpServlet {
 		//Gson gson = new Gson();
 			
 		 //=========로그인정보=========
+		System.out.println("========= 로그인 서비스  =========");
 
-		//이거 해시맵상태임?
+		
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
 		
@@ -43,20 +44,19 @@ public class LoginService extends HttpServlet {
 
 		String jsonStr="false";
 		JsonObject obj=new JsonObject();
-	
 		
+			
 		if(info!=null) {//로그인 성공
 			System.out.println("로그인 성공");
-			HttpSession session = request.getSession();
-			session.setAttribute("info", info);//현재 로그인된 사용자의 정보를 세션에 저장.
-		
+			
 			obj.addProperty("user_email", info.getUser_email());
 			obj.addProperty("user_password",info.getUser_password());
 			obj.addProperty("first_name", info.getFirst_name());
 			obj.addProperty("last_name", info.getLast_name());
-			obj.addProperty("profile_img", info.getProfile_img());
+			obj.addProperty("profile_img", info.getProfile_img()); //주소값을 넘겨줌.
 			obj.addProperty("user_joindate", info.getUser_joindate());
 			obj.addProperty("dept_seq", info.getDept_seq());
+			obj.addProperty("position_num", info.getPosition_num());
 			
 			
 			//안드로이드 전달
