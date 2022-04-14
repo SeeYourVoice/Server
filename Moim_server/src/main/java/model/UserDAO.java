@@ -19,6 +19,14 @@ public class UserDAO {
 	String[] arr=new String[2];
 	
 	
+	PreparedStatement user_psmt = null;
+	PreparedStatement dept_psmt = null;
+	PreparedStatement position_psmt = null;
+	
+
+	int[] d_cnt= new int[3]; // 회원가입 - psmt 세가지니까 배열로 묶기
+
+	
 	//====================================================
 	
 	
@@ -55,6 +63,58 @@ public class UserDAO {
 
 	
 	
+	//====================================================
+	public int JoinDB(UserDTO dto) {
+		int result = 0;
+		try {
+			DBconn();// DB문열었다
+			System.out.println("join dao 실행됨");
+			
+			// 쿼리문
+			String user_sql = "insert into t_user(firt_name, last_name, user_email, user_password) values(?,?,?,?)";
+			String dept_sql = "insert into t_dept(corp_name, dept_name) values(?,?)";
+			String position_sql = "insert into t_position(position_name) values(?)";
+			
+			
+			// sql -> DB에 전달
+			user_psmt = conn.prepareStatement(user_sql);
+			dept_psmt = conn.prepareStatement(dept_sql);
+			position_psmt = conn.prepareStatement(position_sql);
+
+			
+			// 
+			user_psmt.setString(1, dto.getFirst_name());
+			user_psmt.setString(2, dto.getLast_name());
+			user_psmt.setString(3, dto.getUser_email());
+			user_psmt.setString(4, dto.getUser_password());
+
+			
+			dept_psmt.setString(5, dto.getCorp_name()); 
+		    dept_psmt.setString(6, dto.getDept_name());
+			 
+			position_psmt.setString(7, dto.getPosition_name());
+			 
+			// 실행
+			d_cnt[0] = user_psmt.executeUpdate();
+			d_cnt[1] = dept_psmt.executeUpdate();
+			d_cnt[2] = position_psmt.executeUpdate();
+
+		
+			
+			if(d_cnt[0] > 0 && d_cnt[1] >0 && d_cnt[2] >0) { // d_cnt가 모두 1이면
+				result=1;
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}finally { // DB문닫는다
+			
+			DBclose();
+			
+		}return result;
+	}
 	//====================================================
 	
 	//로그인 
