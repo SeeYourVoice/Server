@@ -28,6 +28,20 @@ public class UserDTO {
 
 
 
+	public UserDTO(String user_email, String user_password, String first_name, String last_name, String corp_name,
+			String dept_name, String position_name) {
+		super();
+		this.user_email = user_email;
+		this.user_password = user_password;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.corp_name = corp_name;
+		this.dept_name = dept_name;
+		this.position_name = position_name;
+	}
+
+
+
 	public UserDTO(String user_email, String user_password, String first_name, String last_name, String profile_img,
 			String user_joindate, String corp_name, int dept_seq, String dept_name, int position_num,
 			String position_name) {
