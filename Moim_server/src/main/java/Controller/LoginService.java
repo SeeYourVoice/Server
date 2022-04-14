@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 
@@ -34,7 +33,7 @@ public class LoginService extends HttpServlet {
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
 		
-		//DB에서 일치하는지 보고 
+		//DB에서 일치하는지 보고                                                
 		UserDAO userDAO=new UserDAO();
 		UserDTO userDTO=new UserDTO(id, pw); 
 		
@@ -55,9 +54,11 @@ public class LoginService extends HttpServlet {
 			obj.addProperty("last_name", info.getLast_name());
 			obj.addProperty("profile_img", info.getProfile_img()); //주소값을 넘겨줌.
 			obj.addProperty("user_joindate", info.getUser_joindate());
+			obj.addProperty("corp_name", info.getCorp_name());
 			obj.addProperty("dept_seq", info.getDept_seq());
+			obj.addProperty("dept",info.getDept_name());
 			obj.addProperty("position_num", info.getPosition_num());
-			
+			obj.addProperty("position_name", info.getPosition_name());
 			
 			//안드로이드 전달
 			out.print(obj.toString());
