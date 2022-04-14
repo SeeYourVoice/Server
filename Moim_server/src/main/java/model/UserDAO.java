@@ -12,10 +12,11 @@ public class UserDAO {
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	int cnt = 0;
-
+	
+	String position_name="";
 	//회원정보 저장용 객체
 	UserDTO userDTO=null;
-
+	String[] arr=new String[2];
 	
 	
 	//====================================================
@@ -87,9 +88,16 @@ public class UserDAO {
 	
 				int dept_seq=rs.getInt("DEPT_SEQ");
 				int position_num=rs.getInt("POSITION_NUM");
+				position_name=searchPos(position_num);
 				
-				userDTO=new UserDTO(user_email, user_password, first_name, last_name, 
-						profile_img, user_joindate, dept_seq, position_num);
+				searchDept(dept_seq);
+				String corp_name=arr[0];
+				String dept_name=arr[1];
+				
+				
+				
+				userDTO=new UserDTO(user_email, user_password, first_name, last_name, profile_img, user_joindate, 
+						corp_name, dept_seq, dept_name, position_num, position_name);
 			}
 			
 		} catch (SQLException e) {
@@ -118,8 +126,7 @@ public class UserDAO {
 			psmt.setString(3, id);
 			
 			cnt=psmt.executeUpdate(); 
-			
-			System.out.println(cnt+"안녕");
+		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -130,5 +137,92 @@ public class UserDAO {
 	
 		return cnt;
 	}
-	
+
+	public int EditPw(String id, String pw) {
+		
+		DBconn();
+		String sql= "update t_user set user_password =? where  user_email=?";
+		
+				try {
+					psmt=conn.prepareStatement(sql);
+					psmt.setString(1, pw);
+					psmt.setString(2, id);
+			
+					cnt=psmt.executeUpdate(); 
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					DBclose();
+				}
+			
+				return cnt;
+	}
+
+	public String searchPos(int pos_num) {
+		
+		
+		DBconn();
+		
+		String sql="select POSITION_NAME from t_position where POSITION_NUM=?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+
+			psmt.setInt(1, pos_num);
+			
+			rs=psmt.executeQuery();
+			
+			if(rs.next()) {
+				position_name=rs.getString("POSITION_NAME");
+				System.out.println(position_name);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBclose();
+		}
+		
+		
+		
+		
+		
+		return position_name;
+	}
+
+	public void searchDept(int dept_seq) {
+
+		DBconn();
+		
+		String sql="select CORP_NAME,DEPT_NAME from t_dept where DEPT_SEQ=?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setInt(1, dept_seq);
+			
+			rs=psmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				arr[0]=rs.getString("CORP_NAME");
+				arr[1]=rs.getString("DEPT_NAME");
+				
+				
+			}else {
+				arr[0]="none";
+				arr[1]="none";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBclose();
+		}
+		
+		
+	}
 }
+

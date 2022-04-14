@@ -37,8 +37,8 @@ public class Edit_MyInfo_Service extends HttpServlet {
 		UserDAO userDAO = new UserDAO();
 		int cnt = userDAO.Editname(id, fname, lname);
 		System.out.println(cnt);
+		
 		if (cnt > 0) {
-			
 			out.print("성공");
 		} else {
 			out.print("실패");

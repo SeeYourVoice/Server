@@ -23,6 +23,25 @@
   	<description></description>
   	<servlet-class>Controller.Edit_MyInfo_Service</servlet-class>
   </servlet>
+    <servlet>
+  	<servlet-name>Edit_MyPw</servlet-name>
+  	<display-name>Edit_MyPw</display-name>
+  	<description></description>
+  	<servlet-class>Controller.Edit_MyPw</servlet-class>
+  </servlet>
+    <servlet>
+    	<servlet-name>LoadPos</servlet-name>
+    	<display-name>LoadPos</display-name>
+    	<description></description>
+    	<servlet-class>Controller.LoadPos</servlet-class>
+    </servlet>
+    <servlet>
+    	<servlet-name>Edit_MyPos</servlet-name>
+    	<display-name>Edit_MyPos</display-name>
+    	<description></description>
+    	<servlet-class>Controller.Edit_MyPos</servlet-class>
+    </servlet>
+
  
 
   <servlet-mapping>
@@ -36,6 +55,18 @@
   <servlet-mapping>
   	<servlet-name>Edit_MyInfo_Service</servlet-name>
   	<url-pattern>/Edit_MyInfo_Service</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Edit_MyPw</servlet-name>
+  	<url-pattern>/Edit_MyPw</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadPos</servlet-name>
+  	<url-pattern>/LoadPos</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Edit_MyPos</servlet-name>
+  	<url-pattern>/Edit_MyPos</url-pattern>
   </servlet-mapping>
 
 </web-app>
