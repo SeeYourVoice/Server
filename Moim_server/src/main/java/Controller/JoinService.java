@@ -51,7 +51,7 @@ public class JoinService<DAO> extends HttpServlet {
 		UserDTO dto = new UserDTO(user_email, user_password, first_name, last_name, corp_name, dept_name, position_name);
 		
 		// dao안에 있는 join메소드 호출
-		int cnt = userDAO.JoinDB(dto);
+		int cnt = userDAO.JoinDB(dto); ///////////////////////////////////
 		//안드로이드 전달
 		if(cnt>0) {
 			System.out.println("회원가입 성공");

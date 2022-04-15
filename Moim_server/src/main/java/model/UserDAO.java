@@ -71,7 +71,7 @@ public class UserDAO {
 			System.out.println("join dao 실행됨");
 			
 			// 쿼리문
-			String user_sql = "insert into t_user(firt_name, last_name, user_email, user_password) values(?,?,?,?)";
+			String user_sql = "insert into t_user(first_name, last_name, user_email, user_password) values(?,?,?,?)";
 			String dept_sql = "insert into t_dept(corp_name, dept_name) values(?,?)";
 			String position_sql = "insert into t_position(position_name) values(?)";
 			
@@ -89,13 +89,13 @@ public class UserDAO {
 			user_psmt.setString(4, dto.getUser_password());
 
 			
-			dept_psmt.setString(5, dto.getCorp_name()); 
-		    dept_psmt.setString(6, dto.getDept_name());
+			dept_psmt.setString(1, dto.getCorp_name());
+		    dept_psmt.setString(2, dto.getDept_name());
 			 
-			position_psmt.setString(7, dto.getPosition_name());
+			position_psmt.setString(1, dto.getPosition_name());
 			 
 			// 실행
-			d_cnt[0] = user_psmt.executeUpdate();
+			d_cnt[0] = user_psmt.executeUpdate();  ///////////////////////////////////
 			d_cnt[1] = dept_psmt.executeUpdate();
 			d_cnt[2] = position_psmt.executeUpdate();
 
