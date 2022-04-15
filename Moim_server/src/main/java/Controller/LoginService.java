@@ -29,7 +29,8 @@ public class LoginService extends HttpServlet {
 		 //=========로그인정보=========
 		System.out.println("========= 로그인 서비스  =========");
 
-		
+		String ipString=request.getRemoteAddr();
+		System.out.println("-==="+ipString);
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
 		
