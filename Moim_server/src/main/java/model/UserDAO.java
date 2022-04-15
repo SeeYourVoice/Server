@@ -62,7 +62,6 @@ public class UserDAO {
 	}
 
 	
-	
 	//====================================================
 	public int JoinDB(UserDTO dto) {
 		int result = 0;
@@ -71,37 +70,43 @@ public class UserDAO {
 			System.out.println("join dao 실행됨");
 			
 			// 쿼리문
-			String user_sql = "insert into t_user(first_name, last_name, user_email, user_password) values(?,?,?,?)";
-			String dept_sql = "insert into t_dept(corp_name, dept_name) values(?,?)";
-			String position_sql = "insert into t_position(position_name) values(?)";
+//			String dept_sql = "insert into t_dept(corp_name, dept_name) values(?,?)";
+//			String position_sql = "insert into t_position(position_name) values(?)";
+			String user_sql = "insert into t_user(first_name, last_name, user_email, user_password, dept_num, position_num) values(?,?,?,?"
+					+ "(select dept_seq from t_dept where t_dept =?),"
+					+ "(select position_num from t_position where t_position = ?))";
 			
 			
 			// sql -> DB에 전달
+//			dept_psmt = conn.prepareStatement(dept_sql);
+//			position_psmt = conn.prepareStatement(position_sql);
 			user_psmt = conn.prepareStatement(user_sql);
-			dept_psmt = conn.prepareStatement(dept_sql);
-			position_psmt = conn.prepareStatement(position_sql);
+			
 
 			
 			// 
+			
+//			dept_psmt.setString(1, dto.getCorp_name());
+//			dept_psmt.setString(2, dto.getDept_name());
+//			
+//			position_psmt.setString(1, dto.getPosition_name());
+			
 			user_psmt.setString(1, dto.getFirst_name());
 			user_psmt.setString(2, dto.getLast_name());
 			user_psmt.setString(3, dto.getUser_email());
 			user_psmt.setString(4, dto.getUser_password());
+			user_psmt.setInt(5, dto.getDept_seq());
+			user_psmt.setInt(6, dto.getPosition_num());
 
-			
-			dept_psmt.setString(1, dto.getCorp_name());
-		    dept_psmt.setString(2, dto.getDept_name());
-			 
-			position_psmt.setString(1, dto.getPosition_name());
-			 
+
 			// 실행
-			d_cnt[0] = user_psmt.executeUpdate();  ///////////////////////////////////
-			d_cnt[1] = dept_psmt.executeUpdate();
+//			d_cnt[0] = user_psmt.executeUpdate();  ///////////////////////////////////
+//			d_cnt[1] = dept_psmt.executeUpdate();
 			d_cnt[2] = position_psmt.executeUpdate();
 
 		
 			
-			if(d_cnt[0] > 0 && d_cnt[1] >0 && d_cnt[2] >0) { // d_cnt가 모두 1이면
+			if(d_cnt[2] >0) { // d_cnt가 모두 1이면
 				result=1;
 			}
 			
