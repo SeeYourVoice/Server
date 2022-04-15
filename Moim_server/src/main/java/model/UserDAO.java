@@ -284,5 +284,31 @@ public class UserDAO {
 		
 		
 	}
+
+	public int EditPos(String id, String pos_name) {
+		DBconn();
+		
+		String sql= "update t_user set t_user.position_num =" + 
+				"(select p.position_num "
+				+ "from t_position p "
+				+ "where p.position_name in ?)" + 
+				"where t_user.user_email in ?";
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, pos_name);
+			psmt.setString(2, id);
+			
+			cnt=psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			DBclose();
+		}
+		
+		return cnt;
+		
+	}
+
 }
 
