@@ -54,7 +54,7 @@
   </dependencies>
 
   <build>
-    <finalName>Moim_server</finalName>
+    <finalName>Moim_server</finalName> 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
