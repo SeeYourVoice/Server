@@ -21,6 +21,7 @@ public class DeptListService extends HttpServlet {
 		
 		ArrayList<String> dept_name = new ArrayList<String>();
 		
+		
 		// 부서 리스트
 		request.getParameter("dept_name");
 			
