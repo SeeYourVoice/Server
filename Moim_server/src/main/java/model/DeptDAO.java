@@ -58,18 +58,16 @@ public class DeptDAO {
 		DBconn();
 		
 		// 사용자의 소속 회사 부서 리스트 출력 쿼리문
-		String sql = "select dept_name "
-				+ "from t_dept "
-				+ "where corp_name = "
+		String sql = "select dept_name from t_dept where corp_name in "
 				+ "(select d.corp_name from t_dept d, t_user u where u.dept_seq = d.dept_seq)"; 
 
 		psmt = conn.prepareStatement(sql);
 		
 		rs = psmt.executeQuery();
 		
-		if(rs.next()) {
+		while(rs.next()) {
 			
-			String dept_name = rs.getString(3); // 3번째 컬럼 "dept_name"
+			String dept_name = rs.getString(1); // 3번째 컬럼 "dept_name"
 			
 			dept_name_list.add(dept_name); // list에 dept_name을 담는다
 			
