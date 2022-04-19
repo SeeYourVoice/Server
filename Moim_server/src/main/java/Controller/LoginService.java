@@ -28,20 +28,26 @@ public class LoginService extends HttpServlet {
 		// =========로그인정보=========
 		System.out.println("========= 로그인 서비스  =========");
 
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
 
-		// DB에서 일치하는지 보고
-		UserDAO userDAO = new UserDAO();
-		UserDTO userDTO = new UserDTO(id, pw);
+		String ipString=request.getRemoteAddr();
+		System.out.println("-==="+ipString);
+		String id=request.getParameter("id");
+		String pw=request.getParameter("pw");
+		
+		//DB에서 일치하는지 보고                                                
+		UserDAO userDAO=new UserDAO();
+		UserDTO userDTO=new UserDTO(id, pw); 
+		
+		//회원가입 여부 판단
+		UserDTO info=userDAO.LoginDB(userDTO);
+		 
 
-		// 회원가입 여부 판단
-		UserDTO info = userDAO.LoginDB(userDTO);
+		String jsonStr="false";
+		JsonObject obj=new JsonObject();
+		
+			
+		if(info!=null) {//로그인 성공
 
-		String jsonStr = "false";
-		JsonObject obj = new JsonObject();
-
-		if (info != null) {// 로그인 성공
 			System.out.println("로그인 성공");
 
 			obj.addProperty("user_email", info.getUser_email());

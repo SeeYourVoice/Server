@@ -20,9 +20,11 @@ import model.DeptDAO;
 public class DeptListService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
+
 		PrintWriter out = response.getWriter();
 
 		JsonObject jsonObj = new JsonObject();
