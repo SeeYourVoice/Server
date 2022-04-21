@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import model.DeptDAO;
+import model.DeptDTO;
 
 @WebServlet("/Moim_DeptListService")
 public class DeptListService extends HttpServlet {
@@ -26,27 +28,34 @@ public class DeptListService extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-
-		JsonObject jsonObj = new JsonObject();
-		JsonArray jsonArr = new JsonArray();
-
-		ArrayList<String> dept_name = new ArrayList<String>();
+		Gson gson = new Gson();
+		
+//		JsonObject jsonObj = new JsonObject();
+//		JsonArray jsonArr = new JsonArray();
+	
+		
+		ArrayList<DeptDTO> dept_name = new ArrayList<DeptDTO>();
 
 		// 부서 리스트
 		DeptDAO dao = new DeptDAO();
 
 		dept_name = dao.deptdto();
-
-		for (String dept : dept_name) {
-//			System.out.println(dept);
-			jsonArr.add(dept);
-		}
-
-		jsonObj.add("dept_list", jsonArr);
-
-		System.out.println(jsonObj.toString());
-
-		out.print(jsonObj.toString());
+		
+		String jsonArr = gson.toJson(dept_name);
+		out.print(jsonArr);
+		
+//		for (DeptDTO dept : dept_name) {
+////			System.out.println(dept);
+//			jsonArr.add(dept.getDept_nam.e());
+//			
+//		}
+//
+//		jsonObj.add("dept_name", jsonArr);
+//	
+//		
+//		System.out.println(jsonObj.toString());
+//
+//		out.print(jsonObj.toString());
 
 	}
 
