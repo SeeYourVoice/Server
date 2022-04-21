@@ -26,6 +26,11 @@ public class RecordDTO {
 	}
 
 
+	public RecordDTO() {
+		super();
+	}
+
+
 	public RecordDTO(String rec_date2, String rec_name2) {
 		// TODO Auto-generated constructor stub
 		

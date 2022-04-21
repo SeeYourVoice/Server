@@ -25,22 +25,28 @@ public class RecordInfo_Service extends HttpServlet {
 		
 		
 		response.setContentType("text/html; charset=utf-8");
-		System.out.println("record Info service");
+		System.out.println("============record Info service");
 		
 		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
-
+		
 
 		String rec_name =request.getParameter("rec_name");
 		
-		ArrayList<RecordDTO> rec_list = new ArrayList<RecordDTO>();
 
+		RecordDTO dto = new RecordDTO();
+		
+		System.out.println(rec_name);
+		
 		// 녹음 리스트
 		RecordDAO dao = new RecordDAO();
 
-		rec_list = dao.recInfo(rec_name); 
+		dto = dao.recInfo(rec_name); 
 
-		String jsonArr = gson.toJson(rec_list);
+		String jsonArr = gson.toJson(dto);
+		System.out.println(jsonArr); //확인용
+		
+		
 		out.print(jsonArr);
 	
 		}
