@@ -53,6 +53,18 @@
     	<description></description>
     	<servlet-class>Controller.DeptListService</servlet-class>
     </servlet>
+    <servlet>
+    	<servlet-name>RecordDAO</servlet-name>
+    	<display-name>RecordDAO</display-name>
+    	<description></description>
+    	<servlet-class>model.RecordDAO</servlet-class>
+    </servlet>
+    <servlet>
+    	<servlet-name>RecordService</servlet-name>
+    	<display-name>RecordService</display-name>
+    	<description></description>
+    	<servlet-class>Controller.RecordService</servlet-class>
+    </servlet>
 
  
 
@@ -87,6 +99,14 @@
   <servlet-mapping>
   	<servlet-name>DeptListService</servlet-name>
   	<url-pattern>/DeptListService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RecordDAO</servlet-name>
+  	<url-pattern>/RecordDAO</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RecordService</servlet-name>
+  	<url-pattern>/RecordService</url-pattern>
   </servlet-mapping>
 
 </web-app>

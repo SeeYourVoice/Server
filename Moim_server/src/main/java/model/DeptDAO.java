@@ -50,15 +50,15 @@ public class DeptDAO {
 	
 
 	// 부서 리스트
-	public ArrayList<String> deptdto () {
+	public ArrayList<DeptDTO> deptdto () {
 
-	ArrayList<String> dept_name_list= new ArrayList<String>(); 
+	ArrayList<DeptDTO> dept_name_list= new ArrayList<DeptDTO>(); 
 	
 	try {
 		DBconn();
 		
 		// 사용자의 소속 회사 부서 리스트 출력 쿼리문
-		String sql = "select dept_name from t_dept where corp_name in "
+		String sql = "select dept_name, dept_seq from t_dept where corp_name in "
 				+ "(select d.corp_name from t_dept d, t_user u where u.dept_seq = d.dept_seq)"; 
 
 		psmt = conn.prepareStatement(sql);
@@ -67,9 +67,12 @@ public class DeptDAO {
 		
 		while(rs.next()) {
 			
-			String dept_name = rs.getString(1); // 3번째 컬럼 "dept_name"
+			String dept_name = rs.getString(1); // 1번째 컬럼 "dept_name"
+			int dept_seq = rs.getInt(2);
 			
-			dept_name_list.add(dept_name); // list에 dept_name을 담는다
+			DeptDTO deptDTO=new DeptDTO(dept_name, dept_seq);
+			dept_name_list.add(deptDTO);
+		
 			
 		}
 		
