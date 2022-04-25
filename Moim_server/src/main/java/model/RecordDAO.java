@@ -14,6 +14,8 @@ public class RecordDAO {
 	PreparedStatement psmt = null;
 
 	ResultSet rs = null;
+	
+	int cnt=0;
 
 	public void DBconn() { // DB열기
 		try {
@@ -48,52 +50,52 @@ public class RecordDAO {
 
 	// ====================================================
 
-	public RecordDTO recInfo(String input_rec_name) {
+	 public RecordDTO recInfo(String input_rec_name) {
 
-		RecordDTO record_list = new RecordDTO();
+	      RecordDTO record_list = new RecordDTO();
 
-		
-		System.out.println(input_rec_name);
-		try {
-			DBconn();
+	      
+	      System.out.println(input_rec_name);
+	      try {
+	         DBconn();
 
-			// 사용자의 소속 회사 부서 리스트 출력 쿼리문
-			String sql = "select * from t_record where rec_name = ?";
+	         // 사용자의 소속 회사 부서 리스트 출력 쿼리문
+	         String sql = "select * from t_record where rec_name = ?";
 
-			psmt = conn.prepareStatement(sql);
+	         psmt = conn.prepareStatement(sql);
 
-			psmt.setString(1, input_rec_name);
+	         psmt.setString(1, input_rec_name);
 
-			rs = psmt.executeQuery();
+	         rs = psmt.executeQuery();
 
-			if (rs.next()) {
-				System.out.println("dao 여깄어요~");
-				String rec_seq = rs.getString(1);
-				String user_email = rs.getString(2);
-				String rec_date = rs.getString(3);
-				String rec_text_seq = rs.getString(4);
-				String position_num = rs.getString(5);
-				String rec_wordcloud = rs.getString(6);
-				String dept_seq = rs.getString(7);
-				String rec_name = rs.getString(8);
+	         if (rs.next()) {
+	            System.out.println("dao 여깄어요~");
+	            String rec_seq = rs.getString(1);
+	            String user_email = rs.getString(2);
+	            String rec_date = rs.getString(3);
+	            String rec_text_seq = rs.getString(4);
+	            String position_num = rs.getString(5);
+	            String rec_wordcloud = rs.getString(6);
+	            String dept_seq = rs.getString(7);
+	            String rec_name = rs.getString(8);
 
-				record_list = new RecordDTO(rec_seq, user_email, rec_date, rec_text_seq, position_num, rec_wordcloud,
-						dept_seq, rec_name);
+	            record_list = new RecordDTO(rec_seq, user_email, rec_date, rec_text_seq, position_num, rec_wordcloud,
+	                  dept_seq, rec_name);
 
-			}
+	         }
 
-		} catch (Exception e) {
-			e.printStackTrace();
+	      } catch (Exception e) {
+	         e.printStackTrace();
 
-		} finally {
-			DBclose();
-		}
+	      } finally {
+	         DBclose();
+	      }
 
-		return record_list;
-	}
+	      return record_list;
+	   }
 
 	// 부서별 회의 리스트
-	public ArrayList<RecordDTO> recorddto(int user_dept_seq) {
+	public ArrayList<RecordDTO> recorddto(int dept_seq,String user_email) {
 
 		ArrayList<RecordDTO> record_list = new ArrayList<RecordDTO>();
 
@@ -101,12 +103,25 @@ public class RecordDAO {
 			DBconn();
 
 			// 사용자의 소속 회사 부서 리스트 출력 쿼리문
-			String sql = "select rec_name, rec_date from t_record where dept_seq = ("
-					+ "select dept_seq from t_dept where dept_seq = ?)"; // ?
+//			String sql = "select rec_name, rec_date from t_record where dept_seq = ("
+//					+ "select dept_seq from t_dept where dept_seq = ?)"; // ?
 
-			psmt = conn.prepareStatement(sql);
+			
+			String sql ="select r.rec_name, r.rec_date , p.position_name " + 
+					"from t_record r, t_position p " + 
+					"where r.dept_seq in (select dept_seq from t_dept where dept_seq = ?) " + 
+					"and r.position_num >=(select position_num from t_user where user_email= ?)" + 
+					"and r.position_num = p.position_num";
+				
 
-			psmt.setInt(1, user_dept_seq);
+			String sql2="select r.rec_name, r.rec_date , p.position_name " + 
+					"from t_record r, t_position p  where  r.dept_seq = (select dept_seq from t_dept where dept_seq = ?)" + 
+					"and r.position_num = p.position_num";
+			
+			psmt = conn.prepareStatement(sql2);
+
+			psmt.setInt(1, dept_seq);
+		//	psmt.setString(2, user_email);
 
 			rs = psmt.executeQuery();
 
@@ -114,8 +129,9 @@ public class RecordDAO {
 
 				String rec_date = rs.getString("rec_date");
 				String rec_name = rs.getString("rec_name");
+				String position_num= rs.getString("position_name");
 
-				RecordDTO rec_list_dto = new RecordDTO(rec_date, rec_name);
+				RecordDTO rec_list_dto = new RecordDTO(rec_date, rec_name,position_num);
 
 				record_list.add(rec_list_dto);
 			}
@@ -184,4 +200,40 @@ public class RecordDAO {
 
 	}
 
+	public int insertRec(RecordDTO recordDTO) {
+		
+		DBconn();
+		
+		String sql="insert into t_record(user_email,rec_text_seq,position_num,"
+				+ "rec_wordcloud,dept_seq,rec_name) "
+				+ "values (?,"
+				+ "(select distinct last_value(rec_text_seq)over() from t_record_text),"
+				+ "(select POSITION_NUM from t_position where POSITION_NAME =?),"
+				+ "(select rec_wordcloud from t_record_text where rec_text_seq= ( select distinct last_value(rec_text_seq)over() from t_record_text  )),"
+				+ "?,"
+				+ "?)";
+		
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			
+			psmt.setString(1, recordDTO.getUser_email());
+			psmt.setString(2, recordDTO.getPosition_num());
+			psmt.setInt(3, Integer.parseInt( recordDTO.getDept_seq()));
+			psmt.setString(4, recordDTO.getRec_name());
+			
+			cnt=psmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBclose();
+		}
+		
+		return cnt;
+		
+		
+	}
 }

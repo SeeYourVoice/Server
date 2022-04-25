@@ -65,7 +65,19 @@
     	<description></description>
     	<servlet-class>Controller.RecordService</servlet-class>
     </servlet>
-
+   <servlet>
+       <servlet-name>RecordInfo_Service</servlet-name>
+       <display-name>RecordInfo_Service</display-name>
+       <description></description>
+       <servlet-class>Controller.RecordInfo_Service</servlet-class>
+    </servlet>
+   <servlet>
+   	<servlet-name>insertRecService</servlet-name>
+   	<display-name>insertRecService</display-name>
+   	<description></description>
+   	<servlet-class>Controller.insertRecService</servlet-class>
+   </servlet>
+ 
  
 
   <servlet-mapping>
@@ -108,5 +120,13 @@
   	<servlet-name>RecordService</servlet-name>
   	<url-pattern>/RecordService</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>RecordInfo_Service</servlet-name>
+  	<url-pattern>/RecordInfo_Service</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>insertRecService</servlet-name>
+    	<url-pattern>/insertRecService</url-pattern>
+    </servlet-mapping>
 
 </web-app>

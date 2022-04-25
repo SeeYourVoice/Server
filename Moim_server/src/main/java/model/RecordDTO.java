@@ -25,17 +25,31 @@ public class RecordDTO {
 		this.rec_name = rec_name;
 	}
 
+	
+
+	public RecordDTO(String user_email,  String position_num,  String dept_seq, String rec_name) {
+		super();
+		this.user_email = user_email;
+	//	this.rec_text_seq = rec_text_seq;//이거랑 
+		this.position_num = position_num;
+		//this.rec_wordcloud = rec_wordcloud; //이거는 word_cloud 링크 갖고와야
+		this.dept_seq = dept_seq;
+		this.rec_name = rec_name;
+	}
+
+
 
 	public RecordDTO() {
 		super();
 	}
 
 
-	public RecordDTO(String rec_date2, String rec_name2) {
+	public RecordDTO(String rec_date2, String rec_name2, String position_num) {
 		// TODO Auto-generated constructor stub
 		
 		this.rec_date = rec_date2;
 		this.rec_name = rec_name2;
+		this.position_num=position_num;
 		
 	}
 
