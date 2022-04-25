@@ -81,7 +81,7 @@ public class RecordDAO {
 
 	            record_list = new RecordDTO(rec_seq, user_email, rec_date, rec_text_seq, position_num, rec_wordcloud,
 	                  dept_seq, rec_name);
-
+ 
 	         }
 
 	      } catch (Exception e) {
