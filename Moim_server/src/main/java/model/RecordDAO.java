@@ -122,7 +122,7 @@ public class RecordDAO {
 
 			psmt.setInt(1, dept_seq);
 		//	psmt.setString(2, user_email);
-
+ 
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
