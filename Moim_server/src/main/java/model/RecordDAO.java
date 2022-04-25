@@ -139,7 +139,7 @@ public class RecordDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} finally {
+		} finally { 
 			DBclose();
 		}
 
