@@ -107,11 +107,11 @@ public class RecordDAO {
 //					+ "select dept_seq from t_dept where dept_seq = ?)"; // ?
 
 			
-			String sql ="select r.rec_name, r.rec_date , p.position_name " + 
-					"from t_record r, t_position p " + 
-					"where r.dept_seq in (select dept_seq from t_dept where dept_seq = ?) " + 
-					"and r.position_num >=(select position_num from t_user where user_email= ?)" + 
-					"and r.position_num = p.position_num";
+//			String sql ="select r.rec_name, r.rec_date , p.position_name " + 
+//					"from t_record r, t_position p " + 
+//					"where r.dept_seq in (select dept_seq from t_dept where dept_seq = ?) " + 
+//					"and r.position_num >=(select position_num from t_user where user_email= ?)" + 
+//					"and r.position_num = p.position_num";
 				
 
 			String sql2="select r.rec_name, r.rec_date , p.position_name " + 
