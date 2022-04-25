@@ -33,6 +33,9 @@ public class LoginService extends HttpServlet {
 		System.out.println("-==="+ipString);
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
+		System.out.println("testID : "+id);
+		System.out.println("testPW : "+pw);
+		
 		
 		//DB에서 일치하는지 보고                                                
 		UserDAO userDAO=new UserDAO();
@@ -45,9 +48,7 @@ public class LoginService extends HttpServlet {
 		String jsonStr="false";
 		JsonObject obj=new JsonObject();
 		
-		out.print(id);
-		out.print(pw);
-			
+		
 		if(info!=null) {//로그인 성공
 
 			System.out.println("로그인 성공");
@@ -65,7 +66,7 @@ public class LoginService extends HttpServlet {
 			obj.addProperty("position_name", info.getPosition_name());
 
 			// 안드로이드 전달
-			out.print(obj.toString());
+			out.print(obj);
 			
 
 		} else {// 로그인 실패
