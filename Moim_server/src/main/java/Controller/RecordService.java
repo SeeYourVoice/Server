@@ -35,14 +35,17 @@ public class RecordService extends HttpServlet {
 		System.out.println("========= 녹음 리스트  전송 서비스  =========");
 
 
+	
+		String user_email=request.getParameter("user_email");
 		int dept_seq=Integer.parseInt(request.getParameter("dept_seq"));
-		//System.out.println(dept_seq);
+		System.out.println(dept_seq+"  "+user_email);
+		
 		ArrayList<RecordDTO> rec_list = new ArrayList<RecordDTO>();
 
 		// 녹음 리스트
 		RecordDAO dao = new RecordDAO();
 
-		rec_list = dao.recorddto(dept_seq);// 유저의 부서 seq를 넘겨줌. 
+		rec_list = dao.recorddto(dept_seq,user_email);// 유저의 부서 seq를 넘겨줌. 
 
 		String jsonArr = gson.toJson(rec_list);
 		System.out.println(jsonArr);

@@ -4,6 +4,7 @@ public class PosDTO {
 
 	private int posNum;
 	private String pos;
+	
 	public PosDTO(int posNum, String pos) {
 	
 		this.posNum = posNum;
