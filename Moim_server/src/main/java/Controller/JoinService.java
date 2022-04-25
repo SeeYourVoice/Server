@@ -27,7 +27,6 @@ public class JoinService<DAO> extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		// 1. 파라미터 받아오기
 
-		
 		String user_email = request.getParameter("user_email");
 		String user_password = request.getParameter("user_password");
 		String first_name = request.getParameter("first_name");
