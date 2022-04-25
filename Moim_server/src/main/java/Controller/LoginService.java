@@ -45,6 +45,8 @@ public class LoginService extends HttpServlet {
 		String jsonStr="false";
 		JsonObject obj=new JsonObject();
 		
+		out.print(id);
+		out.print(pw);
 			
 		if(info!=null) {//로그인 성공
 
@@ -64,6 +66,7 @@ public class LoginService extends HttpServlet {
 
 			// 안드로이드 전달
 			out.print(obj.toString());
+			
 
 		} else {// 로그인 실패
 			out.print(jsonStr);
