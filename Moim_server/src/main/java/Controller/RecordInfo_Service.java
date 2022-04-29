@@ -25,18 +25,13 @@ public class RecordInfo_Service extends HttpServlet {
 
    protected void service(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-      
-      
       response.setContentType("text/html; charset=utf-8");
       System.out.println("============record Info service");
       
       PrintWriter out = response.getWriter();
       Gson gson = new Gson();
-      
-
       String rec_name =request.getParameter("rec_name");
-      //String rec_name="record6";
-      
+   
       //dto
       RecordDTO dto = new RecordDTO();
       TextDTO textDTO=new TextDTO();//
@@ -46,25 +41,14 @@ public class RecordInfo_Service extends HttpServlet {
       // 녹음 리스트 dao
       RecordDAO dao = new RecordDAO();
       TextDAO textDAO=new TextDAO(); //
-      
+     
       dto = dao.recInfo(rec_name); 
-      
-
       textDTO= textDAO.justText(Integer.parseInt(dto.getRec_text_seq()));//
-   
-      
+
       //vo
       Rec_VO rec_VO=new Rec_VO(dto, textDTO); //
       
       String jsonArr = gson.toJson(rec_VO);
-      
       out.print(jsonArr);
-      //여기서부터 바꿔야 
-      //String jsonArr = gson.toJson(dto);
-      System.out.println(jsonArr); //확인용
-      
-      
-      //out.print(jsonArr);
-   
       }
    }
